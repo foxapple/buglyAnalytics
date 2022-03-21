@@ -4,19 +4,22 @@ import json
 import time
 
 # 查询的崩溃时间
-needUploadTime = "2021-12-07"
+needUploadTime = "2022-03-17"
 # 筛选目标版本
-needVersion = "4.4.8.0"
+needVersion = "11.5.0"
 # 聚合的崩溃列表一页的数量, 官方接口支持, 前100基本可以算出当天当前崩溃数量
 crashListLimit = '100'
+
+appId = "900003680"
+fsn = "a290e7d4-e2bf-48d7-acd9-8ed78d22e8bf"
 # cookie需要自己更新
 headers = {
-    'Cookie': 'pgv_pvi=6210273280; pgv_pvid=2973940544; RK=m/bAWGR8EL; ptcz=ffddf61b849b4ff82cd58236f210ccf23f16213268bf14427082c5bf94b58db6; pac_uid=1_1542951820; XWINDEXGREY=0; o_cookie=1542951820; vc=vc-891a33e3-7005-4042-be9f-ad59a952723b; vc.sig=NPUE-LkCob1BvEEOO5fxGEOGyfQKVXSPdewSypMDNQk; vc=vc-8948812b-8a63-4352-ba34-b0ba0881d796; tvfe_boss_uuid=ac0db876661daf7e; _tc_unionid=c88233ea-0ac4-4132-81e4-51b95dece700; iip=0; _ga_WPDFHTRGMP=GS1.1.1624970155.2.0.1624970155.0; _ga=GA1.2.741657917.1573613963; fqm_pvqid=81ac626a-9b8d-44fa-88da-3190f8d0ea9b; pgv_info=ssid=s8116303631; uin=o1542951820; skey=@mbb1l2kl8; btcu_id=2d75ccbb-d936-4f97-894d-abf32d6eab76; token-skey=10452e49-9a0a-626a-2feb-99fa0c2e1df4; token-lifeTime=1638946435; bugly-session=s%3AYGxxEzVm-gToEnvs77-fsGKnyBzjDD6L.UGHxepHTfFbCGzabBtpQpTcg364oJ6nY3JQtSv5JBw8; before_login_referer=https%3A%2F%2Fbugly.qq.com%2Fv2%2Fcrash-reporting%2Fdashboard%2Fc0f5bcfee9%3Fpid%3D1; bugly_session=eyJpdiI6InFmdXhpdlY0MUZvT2w1dnRvcWt2cnc9PSIsInZhbHVlIjoib2F0MnJPUjRaaGx0ZEtBdlp6V0RcLzZvaGc5TGtBS05ENHRQOXg1WjVLWXFLa3ZmNmFoc0R3VlRvUm1meXlWVlFPQ2VrbGg0SFdsenRLcDJMb3ByYmx3PT0iLCJtYWMiOiIxMGZmMjZjMmQ1OWJiMmMxMGUyOGNjNzgyYzA0NWRhYmNmMWE2N2MzZGE2ZmZiOGQ2MGJjYWIwMjMyYjJiMzIxIn0%3D; referrer=eyJpdiI6ImxSdllOMUV4MjYxdnZYUFhHRmQzdHc9PSIsInZhbHVlIjoiUWhPUjNjWVhsR0NuazFSRW01YkNhVWJGNXZOVGF1bDRMYlpPOEY5d1pYTXdPWkhYSXUzVGg0MWZ1UmlFM1wvSXlVUWRkQmt5TjEwY1VcL0FyQ2pHRlJSXC9mM0NFaEFUeGVYbHpyQnErTTNJenliSFwvTGtGdUREanBicVNURVk0NVwvUXozMjJpYUVlMlB0RVhqYkNkTWErUTl6VGxlS2wrbXJFZllhV0dEdG00UEVCUGRxaUNCeXJpbjVqVzdrXC91dldyMUY0UDQ0QU4zWWRLdjlNbUpCZFFkOTgweEZUekpGM0liTUhSdmVBSDJyND0iLCJtYWMiOiI0YzUxMjE5MmM2ZDA4M2RlYmRmYzQ5NTRlYWFmZWJkY2UwMDg0MzE0NzE1N2JjMDAxYzZmMDUzY2U5YmE3ZjM0In0%3D'
+    'Cookie': 'RK=bdLVRJHrQc; ptcz=9834a1b98a93eafca235d7834b29eeb1cba7816ce8724749564f75f0e77280fc; pgv_pvid=2430764280; sd_userid=71921623320981549; sd_cookie_crttime=1623320981549; btcu_id=3abf56e28926d97c8700d0cb4bbbea4e60cc4552c350e; pac_uid=0_feb7af1038474; ptui_loginuin=361197128; uin=o0361197128; pgv_info=ssid=s1776488448; skey=@VVhv9nPrE; bugly-session=s%3A0Y75LZvjpkL-EUTCSz1TqpSl5n_Lsbxy.HJeNo7yrZy3fgFk9y46u6DRvDhavzni1nWbUz%2FK0Zcc; connect.sid=s%3AAouz8hY8VzHa5edTVQr9vcC5tVSRGzyZ.RF4HSpQWLc1qc8EFvfFYW%2FEqlk6tAgzSy6HrXj9G4m4; vc=vc-95eb4832-c369-411e-90d6-582b9abcaf85; btcu_id=1dbf8d54-59ba-4bcd-b55c-2bbd65bd7dc0; token-skey=4a2ea2d4-14df-7131-6e49-14cbe6479d6c; token-lifeTime=1647609295; referrer=eyJpdiI6IkErQjBSaWJRSkVTaWg1XC9nSzYyTnhRPT0iLCJ2YWx1ZSI6IkE3WmdrUEFhTGxvdm5oWXN3MDI5d2lyc2twdkVsY3IzU2ZsN0RvVFdoVjNYK2FiVXAySUszWVl1R01nSkJabDhGbWkyMTB0ZWRRRXNEa2Z4bjgyWENIaXVuUGZpQ2ZTa1NwQmFBUkRLOTVONlJZUGJvRUROS2MrRHd1aDNcL1ljM3l5R2R1Z1J5WklEYzBra2M5Q1BXTE14YnpkYWdQcGJHZENxeWtKV2ZNakhcL2QrNk5FQ05ZTnBNZEc4N2I2VG9xbm5idHZKOUc0elZLeE1taElsNEhMZXhwVWVkWTZSZ2RzK1dzVkF0SlVCMD0iLCJtYWMiOiJlZWU1NjEzNWI5ZWRlNjIxZmNiYmExNmQ5ZjdkODU0ZmE0YjIwZjc3MmZhOWRlOWI5NjFmMTRjNmNhY2ZlYmYyIn0%3D; bugly_session=eyJpdiI6Ijk4YmJZUlFtRlpjancyUUFYNGE2eGc9PSIsInZhbHVlIjoiR05TV282OHpmV0NHTnpwemVRYWI2THpFUE5HWXJPWjRjWnhDQVFXbXZoWXQ4SWttZVZ1ZFRxdlJMdHlkbGRyeHg2a1UrVjVLcVJmRlpLWnB0NjBWV0E9PSIsIm1hYyI6IjIzZDJhNmMzYWRkYTY5NTQ0YmM3YmRiYTA1MWUzN2I0OGUwMjRmOWMwMTRjMTNiYWEzMGE0YzcxMzBiMDIxYjAifQ%3D%3D; _dd_s=logs=1&id=3c61d8e6-2c76-4c04-a354-60df3145817c&created=1647588882246&expire=1647595753431'
 }
 
 # java崩溃类型：Crash，native崩溃类型: Native
-def getIssueList(crashType):
-    url = "https://bugly.qq.com/v4/api/old/get-issue-list?start=0&searchType=errorType&exceptionTypeList=" + crashType + "&pid=1&platformId=1&date=last_7_day&sortOrder=desc&version=" + needVersion + "&rows=" + crashListLimit +"&sortField=uploadTime&appId=c0f5bcfee9&fsn=0dd91a76-1029-446e-bc52-1666078e8ecd"
+def getIssueList(crashType, start = 0):
+    url = "https://bugly.qq.com/v4/api/old/get-issue-list?start=" + str(start) + "&searchType=errorType&exceptionTypeList=" + crashType + "&pid=1&platformId=1&date=last_7_day&sortOrder=desc&version=" + needVersion + "&rows=" + crashListLimit +"&sortField=uploadTime&appId=" + appId + "&fsn=" + fsn
     response = requests.get(url, headers=headers)
     content = json.loads(response.content)
     checkData(content, 'getIssueList')
@@ -34,11 +37,11 @@ def getIssueListWithRetry(crashType):
 #校验数据, 并打印错误数据
 def checkData(data, tag):
     if data["code"] != 200:
-        print "[" + tag + "]", data
+        print ("[" + tag + "]", data)
 
 # 获取聚合的崩溃列表记录
 def getCrashList(issueId, rows):
-    url = "https://bugly.qq.com/v4/api/old/get-crash-list?start=0&searchType=detail&exceptionTypeList=Crash,Native,ExtensionCrash&pid=1&crashDataType=unSystemExit&platformId=1&issueId=" + issueId + "&rows=" + rows + "&appId=c0f5bcfee9&fsn=6db6d0ba-6874-4f58-875b-3de08f52eb87"
+    url = "https://bugly.qq.com/v4/api/old/get-crash-list?start=0&searchType=detail&exceptionTypeList=Crash,Native,ExtensionCrash&pid=1&crashDataType=unSystemExit&platformId=1&issueId=" + issueId + "&rows=" + rows + "&appId=" + appId + "&fsn=" + fsn
     response = requests.get(url, headers=headers)
     return response.content
 
@@ -47,9 +50,9 @@ def getCrashNum(issueId):
     content = getCrashList(issueId, crashListLimit)
     crashList = json.loads(content)
     checkData(crashList, 'getCrashNum')
-    print "getCrashNum before:" + issueId
+    print ("getCrashNum before:" + issueId)
     if crashList["code"] != 200:
-        print content
+        print (content)
         return -1
 
     data = crashList["data"]
@@ -71,10 +74,10 @@ def getCrashNumWithTry(issueId):
     count = getCrashNum(issueId)
     while(count < 0):
         time.sleep(1)
-        print "try again getCrashNum"
+        print ("try again getCrashNum")
         count = getCrashNum(issueId)
 
-    print {"issueId": issueId, "count": count}
+    print ({"issueId": issueId, "count": count})
     return count
 
 # 时间戳转换成指定格式时间
@@ -103,10 +106,10 @@ def calucateTime(startTime, days):
 
 # 计算某个类型崩溃的数量
 def getCrashTotalNum(crashType):
-    crashList = getIssueListWithRetry(crashType)
-    issueList = crashList['data']['issueList']
+    crashTotalList = getIssueListWithRetry(crashType)
+    issueTotalList = crashTotalList['data']['issueList']
     count = 0
-    for issue in issueList:
+    for issue in issueTotalList:
         # 过滤查询崩溃时间之前的崩溃
         lastestUploadTime = issue['lastestUploadTime']
         if converDataToTime(lastestUploadTime, 1) < converDataToTime(needUploadTime, 2):
@@ -120,6 +123,6 @@ def getCrashTotalNum(crashType):
 
 javaCount = getCrashTotalNum("Crash")
 nativeCount = getCrashTotalNum("Native")
-print "===============统计结果==================="
-print "nativeCount" + str(nativeCount) + ",java:" + str(javaCount)
-print {"NativeCrashNum": nativeCount,  "JavaCrashNum": javaCount, "TotalNum": nativeCount + javaCount, "time": needUploadTime, "version": needVersion }
+print ("===============统计结果===================")
+print ("nativeCount" + str(nativeCount) + ",java:" + str(javaCount))
+print ({"NativeCrashNum": nativeCount,  "JavaCrashNum": javaCount, "TotalNum": nativeCount + javaCount, "time": needUploadTime, "version": needVersion })
