@@ -13,8 +13,10 @@ crashListLimit = '100'
 appId = "900003680"
 fsn = "a290e7d4-e2bf-48d7-acd9-8ed78d22e8bf"
 # cookie需要自己更新
+
+f=open(r'bugly_cookie.txt','r')#打开所保存的cookies内容文件
 headers = {
-    'Cookie': 'RK=bdLVRJHrQc; ptcz=9834a1b98a93eafca235d7834b29eeb1cba7816ce8724749564f75f0e77280fc; pgv_pvid=2430764280; sd_userid=71921623320981549; sd_cookie_crttime=1623320981549; btcu_id=3abf56e28926d97c8700d0cb4bbbea4e60cc4552c350e; pac_uid=0_feb7af1038474; ptui_loginuin=361197128; uin=o0361197128; pgv_info=ssid=s1776488448; skey=@VVhv9nPrE; bugly-session=s%3A0Y75LZvjpkL-EUTCSz1TqpSl5n_Lsbxy.HJeNo7yrZy3fgFk9y46u6DRvDhavzni1nWbUz%2FK0Zcc; connect.sid=s%3AAouz8hY8VzHa5edTVQr9vcC5tVSRGzyZ.RF4HSpQWLc1qc8EFvfFYW%2FEqlk6tAgzSy6HrXj9G4m4; vc=vc-95eb4832-c369-411e-90d6-582b9abcaf85; btcu_id=1dbf8d54-59ba-4bcd-b55c-2bbd65bd7dc0; token-skey=4a2ea2d4-14df-7131-6e49-14cbe6479d6c; token-lifeTime=1647609295; referrer=eyJpdiI6IkErQjBSaWJRSkVTaWg1XC9nSzYyTnhRPT0iLCJ2YWx1ZSI6IkE3WmdrUEFhTGxvdm5oWXN3MDI5d2lyc2twdkVsY3IzU2ZsN0RvVFdoVjNYK2FiVXAySUszWVl1R01nSkJabDhGbWkyMTB0ZWRRRXNEa2Z4bjgyWENIaXVuUGZpQ2ZTa1NwQmFBUkRLOTVONlJZUGJvRUROS2MrRHd1aDNcL1ljM3l5R2R1Z1J5WklEYzBra2M5Q1BXTE14YnpkYWdQcGJHZENxeWtKV2ZNakhcL2QrNk5FQ05ZTnBNZEc4N2I2VG9xbm5idHZKOUc0elZLeE1taElsNEhMZXhwVWVkWTZSZ2RzK1dzVkF0SlVCMD0iLCJtYWMiOiJlZWU1NjEzNWI5ZWRlNjIxZmNiYmExNmQ5ZjdkODU0ZmE0YjIwZjc3MmZhOWRlOWI5NjFmMTRjNmNhY2ZlYmYyIn0%3D; bugly_session=eyJpdiI6Ijk4YmJZUlFtRlpjancyUUFYNGE2eGc9PSIsInZhbHVlIjoiR05TV282OHpmV0NHTnpwemVRYWI2THpFUE5HWXJPWjRjWnhDQVFXbXZoWXQ4SWttZVZ1ZFRxdlJMdHlkbGRyeHg2a1UrVjVLcVJmRlpLWnB0NjBWV0E9PSIsIm1hYyI6IjIzZDJhNmMzYWRkYTY5NTQ0YmM3YmRiYTA1MWUzN2I0OGUwMjRmOWMwMTRjMTNiYWEzMGE0YzcxMzBiMDIxYjAifQ%3D%3D; _dd_s=logs=1&id=3c61d8e6-2c76-4c04-a354-60df3145817c&created=1647588882246&expire=1647595753431'
+    'Cookie': f.readlines()[0]
 }
 
 # java崩溃类型：Crash，native崩溃类型: Native
